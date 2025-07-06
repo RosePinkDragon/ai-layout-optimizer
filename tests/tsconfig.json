@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "types": ["bun-types"],
+
+    // Path mapping
+    "baseUrl": "..",
+    "paths": {
+      "layout_generator/*": ["src/layout_generator/*"],
+      "data/*": ["data/*"],
+      "types": ["types.ts"]
+    }
+  },
+  "include": ["tests/**/*", "*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
