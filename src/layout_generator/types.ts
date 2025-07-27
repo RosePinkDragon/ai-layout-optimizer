@@ -18,7 +18,7 @@ export interface Tile {
 }
 
 export type Building = {
-  id: string;
+  id?: string;
   name: string;
   size: Size;
   position?: Position;
