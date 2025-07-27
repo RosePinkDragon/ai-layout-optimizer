@@ -111,6 +111,79 @@ Generates an optimized building layout based on the provided configuration.
 }
 ```
 
+### 4. AI Auto-Optimize Layout
+
+**POST** `/api/ai-optimize-layout`
+
+🤖 **NEW AI-POWERED ENDPOINT**: Automatically generates and tests multiple road configurations to find the optimal layout for maximum revenue generation. The AI tests 5 different road placement strategies and returns the best performing layout.
+
+**Request Body:**
+
+```json
+{
+  "plotConfiguration": {
+    "plotsX": 4,
+    "plotsY": 4,
+    "plotSize": {
+      "width": 4,
+      "height": 4
+    }
+  },
+  "buildings": [
+    { "name": "Cottage", "count": 3 },
+    { "name": "Aero Club", "count": 1 },
+    { "name": "Bowling Alley", "count": 2 },
+    { "name": "Hotel", "count": 1 }
+  ]
+}
+```
+
+**Key Features:**
+
+- 🚫 **No road placements required** - AI generates optimal road networks automatically
+- 🔢 **Building counts supported** - Specify how many of each building type you want
+- 🧠 **Multiple strategies tested** - AI tries 5 different road placement algorithms:
+  1. No roads (rely on infinite road at Y=0)
+  2. Central cross road network
+  3. Grid road network
+  4. Border roads around plots
+  5. Minimal road network (sparse placement)
+- 🏆 **Best layout selection** - Returns the configuration with highest total revenue
+- 📊 **Revenue optimization** - Automatically maximizes coins + passengers revenue
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "placedBuildings": [...],
+  "failedBuildings": [...],
+  "totalCoinsRevenue": 2400,
+  "totalPassengersRevenue": 800,
+  "coinsRevenuePerHour": 240,
+  "passengersRevenuePerHour": 80,
+  "bonusAnalysis": [...],
+  "gridVisualization": "R R R R R R R R R R R R R R R R\nC C C . . . H H . . . . B B . .\n. . . . . . H H . . . . B B . .\n. . . . . . . . . . . . . . . .\n...",
+  "validation": {
+    "isValid": true,
+    "errors": []
+  },
+  "metadata": {
+    "requestedBuildings": [
+      { "name": "Cottage", "count": 3 },
+      { "name": "Aero Club", "count": 1 },
+      { "name": "Bowling Alley", "count": 2 },
+      { "name": "Hotel", "count": 1 }
+    ],
+    "totalBuildingInstances": 8,
+    "foundBuildingTypes": 4,
+    "plotConfiguration": {...},
+    "optimizationAttempts": 5,
+    "isAIOptimized": true
+  }
+}
+```
+
 ## Request Parameters
 
 ### PlotConfiguration
@@ -187,5 +260,53 @@ curl -X POST http://localhost:3000/api/optimize-layout \
         { "x": 2, "y": 4 }
       ]
     }
+  }'
+```
+
+### 🤖 AI Auto-Optimization (Recommended)
+
+```bash
+curl -X POST http://localhost:3000/api/ai-optimize-layout \
+  -H "Content-Type: application/json" \
+  -d '{
+    "plotConfiguration": {
+      "plotsX": 4,
+      "plotsY": 4,
+      "plotSize": {
+        "width": 4,
+        "height": 4
+      }
+    },
+    "buildings": [
+      { "name": "Cottage", "count": 3 },
+      { "name": "Aero Club", "count": 1 },
+      { "name": "Bowling Alley", "count": 2 },
+      { "name": "Hotel", "count": 1 }
+    ]
+  }'
+```
+
+### Large AI Optimization
+
+```bash
+curl -X POST http://localhost:3000/api/ai-optimize-layout \
+  -H "Content-Type: application/json" \
+  -d '{
+    "plotConfiguration": {
+      "plotsX": 5,
+      "plotsY": 5,
+      "plotSize": {
+        "width": 4,
+        "height": 4
+      }
+    },
+    "buildings": [
+      { "name": "Terminal", "count": 2 },
+      { "name": "Control Tower", "count": 1 },
+      { "name": "Hangar", "count": 3 },
+      { "name": "Cottage", "count": 5 },
+      { "name": "Hotel", "count": 2 },
+      { "name": "Bakery", "count": 2 }
+    ]
   }'
 ```

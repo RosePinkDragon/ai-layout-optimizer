@@ -37,6 +37,7 @@ app.get("/", (req: Request, res: Response) => {
       health: "/api/health",
       buildings: "/api/buildings",
       optimizeLayout: "/api/optimize-layout",
+      aiOptimizeLayout: "/api/ai-optimize-layout",
     },
     documentation: {
       optimizeLayout: {
@@ -60,6 +61,28 @@ app.get("/", (req: Request, res: Response) => {
               },
             ],
           },
+        },
+      },
+      aiOptimizeLayout: {
+        method: "POST",
+        endpoint: "/api/ai-optimize-layout",
+        description:
+          "🤖 AI-powered layout optimization with automatic road placement",
+        body: {
+          plotConfiguration: {
+            plotsX: ["number", "Number of plots horizontally"],
+            plotsY: ["number", "Number of plots vertically"],
+            plotSize: {
+              width: ["number", "Width of each plot"],
+              height: ["number", "Height of each plot"],
+            },
+          },
+          buildings: [
+            {
+              name: ["string", "Building name from database"],
+              count: ["number", "Number of this building type to place"],
+            },
+          ],
         },
       },
     },
@@ -90,6 +113,9 @@ const server = app.listen(PORT, () => {
   console.log(`🏢 Available buildings: http://localhost:${PORT}/api/buildings`);
   console.log(
     `🎯 Optimize layout: POST http://localhost:${PORT}/api/optimize-layout`
+  );
+  console.log(
+    `🤖 AI Auto-optimize: POST http://localhost:${PORT}/api/ai-optimize-layout`
   );
   console.log(`📚 API documentation: http://localhost:${PORT}/`);
 });

@@ -12,4 +12,7 @@ router.get("/buildings", LayoutController.getAvailableBuildings);
 // Optimize layout endpoint
 router.post("/optimize-layout", LayoutController.optimizeLayout);
 
+// AI Auto-optimize layout endpoint
+router.post("/ai-optimize-layout", LayoutController.aiOptimizeLayout);
+
 export default router;
