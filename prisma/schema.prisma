@@ -10,6 +10,41 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+model Building {
+  id     String @id @default(cuid())
+  name   String @unique
+  width  Int
+  height Int
+
+  type          BuildingType
+  requiresRoad  Boolean
+  revenue       Int?
+  timeToRevenue Int?
+
+  bonusType        BonusType? // for decoration
+  bonusPercentage  Int?
+  bonusRadius      Int?
+  neighborhoodType NeighborhoodType?
+
+  @@index([type])
+}
+
+enum BuildingType {
+  residential
+  commercial
+  decoration
+}
+
+enum BonusType {
+  coins
+  passengers
+}
+
+enum NeighborhoodType {
+  moore
+  manhattan
 }
