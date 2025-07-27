@@ -1,0 +1,101 @@
+{
+  "name": "AI Layout Optimizer API Examples",
+  "requests": [
+    {
+      "name": "Health Check",
+      "method": "GET",
+      "url": "http://localhost:3000/api/health"
+    },
+    {
+      "name": "Get Available Buildings",
+      "method": "GET",
+      "url": "http://localhost:3000/api/buildings"
+    },
+    {
+      "name": "Basic Layout Optimization",
+      "method": "POST",
+      "url": "http://localhost:3000/api/optimize-layout",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "buildingNames": ["Terminal", "Runway"],
+        "plotConfiguration": {
+          "plotsX": 2,
+          "plotsY": 2,
+          "plotSize": {
+            "width": 4,
+            "height": 4
+          }
+        }
+      }
+    },
+    {
+      "name": "Layout with Custom Roads",
+      "method": "POST",
+      "url": "http://localhost:3000/api/optimize-layout",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "buildingNames": ["Terminal", "Control Tower", "Hangar"],
+        "plotConfiguration": {
+          "plotsX": 3,
+          "plotsY": 3,
+          "plotSize": {
+            "width": 4,
+            "height": 4
+          }
+        },
+        "roadPlacements": {
+          "positions": [
+            { "x": 0, "y": 4 },
+            { "x": 1, "y": 4 },
+            { "x": 2, "y": 4 },
+            { "x": 4, "y": 0 },
+            { "x": 4, "y": 1 },
+            { "x": 4, "y": 2 }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Large Layout Test",
+      "method": "POST",
+      "url": "http://localhost:3000/api/optimize-layout",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "buildingNames": [
+          "Terminal",
+          "Control Tower",
+          "Hangar",
+          "Runway",
+          "Baggage Claim"
+        ],
+        "plotConfiguration": {
+          "plotsX": 5,
+          "plotsY": 5,
+          "plotSize": {
+            "width": 4,
+            "height": 4
+          }
+        },
+        "roadPlacements": {
+          "positions": [
+            { "x": 2, "y": 0 },
+            { "x": 2, "y": 1 },
+            { "x": 2, "y": 2 },
+            { "x": 2, "y": 3 },
+            { "x": 2, "y": 4 },
+            { "x": 0, "y": 2 },
+            { "x": 1, "y": 2 },
+            { "x": 3, "y": 2 },
+            { "x": 4, "y": 2 }
+          ]
+        }
+      }
+    }
+  ]
+}

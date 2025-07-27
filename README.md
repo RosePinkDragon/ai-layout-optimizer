@@ -11,6 +11,7 @@ A standalone TypeScript library for optimizing Airport City mobile game layouts.
 - 🗺️ **Grid Visualization:** ASCII-based grid visualization for layout inspection
 - 🛣️ **Flexible Roads:** Support for custom road networks or automatic generation
 - ✅ **Validation:** Built-in layout validation and error reporting
+- 🌐 **REST API:** Full-featured API for web integration and remote optimization
 
 ## Installation
 
@@ -19,6 +20,8 @@ bun install
 ```
 
 ## Quick Start
+
+### Using the Library
 
 ```typescript
 import { AILayoutOptimizer, optimizeLayout } from "./index";
@@ -45,6 +48,62 @@ console.log(`Revenue: $${result.totalRevenue}`);
 console.log(`Placed: ${result.placedBuildings.length} buildings`);
 console.log(result.gridVisualization);
 ```
+
+### Using the REST API
+
+Start the API server:
+
+```bash
+# Development mode (with hot reload)
+bun run api:dev
+
+# Production mode
+bun run start
+```
+
+The API will be available at `http://localhost:3000`
+
+#### API Example Usage
+
+```bash
+# Get all available buildings
+curl http://localhost:3000/api/buildings
+
+# Optimize a layout
+curl -X POST http://localhost:3000/api/optimize-layout \
+  -H "Content-Type: application/json" \
+  -d '{
+    "buildingNames": ["Terminal H Level 1", "Runway", "Control Tower"],
+    "plotConfiguration": {
+      "plotsX": 3,
+      "plotsY": 3,
+      "plotSize": { "width": 4, "height": 4 }
+    },
+    "roadPlacements": {
+      "positions": [
+        { "x": 1, "y": 4 },
+        { "x": 5, "y": 4 },
+        { "x": 9, "y": 4 }
+      ]
+    }
+  }'
+```
+
+For complete API documentation, see [API.md](API.md).
+
+## API Endpoints
+
+- **GET** `/api/health` - Health check
+- **GET** `/api/buildings` - Get all available building names from database
+- **POST** `/api/optimize-layout` - Generate optimized layout from building names
+
+### API Features
+
+- 🏢 **Database Integration:** Fetches building data from Prisma/SQLite database
+- 🔍 **Building Discovery:** Automatic building information retrieval
+- 📝 **Request Validation:** Comprehensive input validation and error handling
+- 📊 **Rich Responses:** Detailed results with metadata and visualizations
+- 🧪 **Testing:** Built-in test script and example requests
 
 ## API Reference
 
